@@ -14,7 +14,7 @@
 # (execution of docker run cmd) starts couchdb and tomcat.
 # -----------------------------------------------------------------------------
 
-set -e -o  pipefail
+set -e -o pipefail
 
 # Source the version
 # shellcheck disable=SC1091
@@ -34,9 +34,12 @@ image_build() {
     local target
     local name
     local version
-    target="$1"; shift
-    name="$1"; shift
-    version="$1"; shift
+    target="$1"
+    shift
+    name="$1"
+    shift
+    version="$1"
+    shift
 
     docker buildx build \
         --target "$target" \
@@ -49,10 +52,6 @@ image_build() {
 
 image_build sw360thrift thrift "$THRIFT_VERSION" --build-arg THRIFT_VERSION="$THRIFT_VERSION" "$@"
 
-image_build sw360 binaries "$SW360_VERSION" --build-arg MAVEN_VERSION="$MAVEN_VERSION" \
+image_build sw360 sw360 "$SW360_VERSION" --build-arg MAVEN_VERSION="$MAVEN_VERSION" \
     --secret id=sw360,src="$SECRETS" \
     --build-context "sw360thrift=docker-image://${DOCKER_IMAGE_ROOT}/thrift:latest" "$@"
-
-image_build runtime sw360 "$SW360_VERSION" \
-    --build-context "base=docker-image://${DOCKER_IMAGE_ROOT}/base:latest" \
-    --build-context "sw360=docker-image://${DOCKER_IMAGE_ROOT}/binaries:latest" "$@"
