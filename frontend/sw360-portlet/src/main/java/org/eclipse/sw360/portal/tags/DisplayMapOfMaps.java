@@ -25,9 +25,10 @@ public class DisplayMapOfMaps extends SimpleTagSupport {
     private Map<String, Map<String, String>> value;
     private Map<String, Map<String, String>> autoFillValue;
 
-    public void setValue(Map<String,Map<String, String>> value) {
+    public void setValue(Map<String, Map<String, String>> value) {
         this.value = value;
     }
+
     public void setAutoFillValue(Map<String, Map<String, String>> autoFillValue) {
         this.autoFillValue = autoFillValue;
     }
@@ -41,12 +42,12 @@ public class DisplayMapOfMaps extends SimpleTagSupport {
             fullValue = value;
         }
 
-        if (null != fullValue && ! fullValue.isEmpty()) {
+        if (null != fullValue && !fullValue.isEmpty()) {
             StringBuilder sb = new StringBuilder();
             sb.append("<ul>");
             fullValue.entrySet().stream().forEach(e -> sb.append(
-                    "<li><b>"+e.getKey()+"</b>:<div style=\"padding:0 0 0 1em;\">"+ DisplayMap.getMapAsString(e.getValue()) + "</div></li>"
-            ));
+                    "<li><b>" + e.getKey() + "</b>:<div style=\"padding:0 0 0 1em;\">"
+                            + DisplayMap.getMapAsString(e.getValue()) + "</div></li>"));
             sb.append("</ul>");
             getJspContext().getOut().print(sb.toString());
         }

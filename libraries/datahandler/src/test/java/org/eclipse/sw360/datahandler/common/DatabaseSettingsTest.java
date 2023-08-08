@@ -61,10 +61,10 @@ public class DatabaseSettingsTest {
 
     public static Supplier<HttpClient> getConfiguredHttpClient() throws MalformedURLException {
         StdHttpClient.Builder httpClientBuilder = new StdHttpClient.Builder().url(COUCH_DB_URL);
-        if(! "".equals(COUCH_DB_USERNAME)) {
+        if (!"".equals(COUCH_DB_USERNAME)) {
             httpClientBuilder.username(COUCH_DB_USERNAME);
         }
-        if (! "".equals(COUCH_DB_PASSWORD)) {
+        if (!"".equals(COUCH_DB_PASSWORD)) {
             httpClientBuilder.password(COUCH_DB_PASSWORD);
         }
         return httpClientBuilder::build;
@@ -93,7 +93,6 @@ public class DatabaseSettingsTest {
         }
         return clientBuilder::build;
     }
-
 
     private DatabaseSettingsTest() {
         // Utility class with only static functions

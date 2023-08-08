@@ -16,7 +16,7 @@ import org.eclipse.sw360.datahandler.thrift.vendors.VendorService;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.thrift.TException;
 
 import java.util.ResourceBundle;

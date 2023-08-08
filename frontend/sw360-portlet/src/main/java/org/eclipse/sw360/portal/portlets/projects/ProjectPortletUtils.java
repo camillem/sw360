@@ -35,7 +35,7 @@ import org.eclipse.sw360.portal.common.PortalConstants;
 import org.eclipse.sw360.portal.common.PortletUtils;
 import org.eclipse.sw360.portal.users.UserCacheHolder;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -95,7 +95,7 @@ public class ProjectPortletUtils {
                     if(licenseInfoHeader == null) {
                         project.unsetLicenseInfoHeaderText();
                     } else {
-                        project.setLicenseInfoHeaderText(StringEscapeUtils.unescapeHtml(licenseInfoHeader));
+                        project.setLicenseInfoHeaderText(StringEscapeUtils.unescapeHtml4(licenseInfoHeader));
                     }
                     break;
 
@@ -105,7 +105,7 @@ public class ProjectPortletUtils {
                     if(obligationsText == null) {
                         project.unsetObligationsText();
                     } else {
-                        project.setObligationsText(StringEscapeUtils.unescapeHtml(obligationsText));
+                        project.setObligationsText(StringEscapeUtils.unescapeHtml4(obligationsText));
                     }
                     break;
 

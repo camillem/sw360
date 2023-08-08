@@ -44,7 +44,7 @@ public class DatabaseTestProperties {
 
     public static HttpClient getConfiguredHttpClient() throws MalformedURLException {
         StdHttpClient.Builder httpClientBuilder = new StdHttpClient.Builder().url(COUCH_DB_URL);
-        if(COUCH_DB_USERNAME.isPresent() && COUCH_DB_PASSWORD.isPresent()) {
+        if (COUCH_DB_USERNAME.isPresent() && COUCH_DB_PASSWORD.isPresent()) {
             httpClientBuilder.username(COUCH_DB_USERNAME.get());
             httpClientBuilder.password(COUCH_DB_PASSWORD.get());
         }

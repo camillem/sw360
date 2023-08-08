@@ -10,7 +10,7 @@
  */
 package org.eclipse.sw360.portal.tags;
 
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.eclipse.sw360.datahandler.common.SW360Utils;
 import org.eclipse.sw360.datahandler.thrift.users.RestApiToken;
 

@@ -9,7 +9,7 @@
  */
 package org.eclipse.sw360.portal.tags;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.eclipse.sw360.datahandler.common.CommonUtils;
 
 import javax.servlet.jsp.JspException;

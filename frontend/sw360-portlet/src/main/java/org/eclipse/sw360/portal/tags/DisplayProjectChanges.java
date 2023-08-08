@@ -14,7 +14,7 @@ import com.google.common.collect.Sets;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.thrift.TException;
 import org.apache.thrift.meta_data.FieldMetaData;
 import org.eclipse.sw360.datahandler.common.CommonUtils;
@@ -255,7 +255,7 @@ public class DisplayProjectChanges extends UserAwareTag {
                 if (!isClosedModeration && !updateProjectRelationship.equals(oldProjectRelationship)) {
                     changeMap.put(projectId, oldProjectRelationshipMap.get(projectId));
                 }
-                
+
                 if (isClosedModeration && !updateProjectRelationship.equals(deleteProjectRelationship)) {
                     changeMap.put(projectId, deleteProjectRelationshipMap.get(projectId));
                 }
@@ -366,7 +366,7 @@ public class DisplayProjectChanges extends UserAwareTag {
             modifiedProject.setLicenseInfoHeaderText(defaultTextAsHtmlForDisplay);
         } else {
             // for a custom text escape html properly
-            modifiedProject.setLicenseInfoHeaderText(StringEscapeUtils.escapeHtml(modifiedProject.getLicenseInfoHeaderText()).replace("\n", "<br>") );
+            modifiedProject.setLicenseInfoHeaderText(StringEscapeUtils.escapeHtml4(modifiedProject.getLicenseInfoHeaderText()).replace("\n", "<br>") );
         }
 
         return modifiedProject;
@@ -383,7 +383,7 @@ public class DisplayProjectChanges extends UserAwareTag {
             modifiedProject.setObligationsText(defaultTextAsHtmlForDisplay);
         } else {
             // for a custom text escape html properly
-            modifiedProject.setObligationsText(StringEscapeUtils.escapeHtml(modifiedProject.getObligationsText()).replace("\n", "<br>") );
+            modifiedProject.setObligationsText(StringEscapeUtils.escapeHtml4(modifiedProject.getObligationsText()).replace("\n", "<br>") );
         }
 
         return modifiedProject;

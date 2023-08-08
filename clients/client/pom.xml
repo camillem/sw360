@@ -16,7 +16,7 @@
     <parent>
         <groupId>org.eclipse.sw360</groupId>
         <artifactId>clients</artifactId>
-        <version>${revision}</version>
+        <version>${sw360.version}</version>
     </parent>
 
     <artifactId>client</artifactId>
@@ -100,12 +100,12 @@
         </dependency>
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-jre8</artifactId>
+            <artifactId>wiremock</artifactId>
+            <version>${wiremock.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

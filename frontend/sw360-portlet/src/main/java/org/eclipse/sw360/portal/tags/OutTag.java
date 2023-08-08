@@ -9,8 +9,8 @@
  */
 package org.eclipse.sw360.portal.tags;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.taglibs.standard.tag.common.core.OutSupport;
 
 import javax.servlet.jsp.JspException;
@@ -52,7 +52,7 @@ public class OutTag extends OutSupport {
             }
 
             if (jsQuoting) {
-                candidate = StringEscapeUtils.escapeJavaScript(candidate);
+                candidate = StringEscapeUtils.escapeEcmaScript(candidate);
             }
 
             if (stripNewlines) {
@@ -105,11 +105,11 @@ public class OutTag extends OutSupport {
         this.hashSet = hashSet;
     }
 
-    public void setBare(boolean bare) { this.bare = bare; }
+    public void setBare(boolean bare) {
+        this.bare = bare;
+    }
 
     private String prepareTitleAttribute(String value) {
         return escapeAttributeValue(value).replaceAll("[\r\n]+", "&#013;&#010;");
     }
 }
-
-

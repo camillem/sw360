@@ -11,7 +11,7 @@
 package org.eclipse.sw360.portal.tags;
 
 import com.google.common.base.Strings;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 

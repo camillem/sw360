@@ -10,7 +10,7 @@
 package org.eclipse.sw360.portal.tags;
 
 import com.google.common.collect.Sets;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TFieldIdEnum;
@@ -52,30 +52,31 @@ public class TagUtils {
     public static final String NO_FILENAME = "(no filename)";
 
     public static <U extends TFieldIdEnum, T extends TBase<T, U>> void displaySimpleFieldOrSet(StringBuilder display,
-                                                                                               T oldInstance,
-                                                                                               T additions,
-                                                                                               T deletions,
-                                                                                               U field,
-                                                                                               FieldMetaData fieldMetaData,
-                                                                                               String prefix,
-                                                                                               boolean isClosedModeration) {
+            T oldInstance,
+            T additions,
+            T deletions,
+            U field,
+            FieldMetaData fieldMetaData,
+            String prefix,
+            boolean isClosedModeration) {
         Object oldFieldValue = oldInstance.getFieldValue(field);
         Object deletedFieldValue = deletions.getFieldValue(field);
         Object updateFieldValue = additions.getFieldValue(field);
 
         if (updateFieldValue == null && deletedFieldValue == null) {
-            return; //no intent to change something
+            return; // no intent to change something
         }
         if (updateFieldValue != null && updateFieldValue.equals(deletedFieldValue)) {
-            return; //no intent to change something
+            return; // no intent to change something
         }
         if (updateFieldValue != null && !isClosedModeration && updateFieldValue.equals(oldFieldValue)) {
-            return; //no actual change
+            return; // no actual change
         }
         if (oldFieldValue == null && updateFieldValue == null) {
-            return; //no actual change
+            return; // no actual change
         }
-        if ((oldFieldValue != null && !oldFieldValue.equals(updateFieldValue)) || oldFieldValue == null || isClosedModeration) {
+        if ((oldFieldValue != null && !oldFieldValue.equals(updateFieldValue)) || oldFieldValue == null
+                || isClosedModeration) {
             if (fieldMetaData.valueMetaData.type == TType.SET) {
                 displaySet(
                         display,
@@ -84,8 +85,9 @@ public class TagUtils {
                         (Set<String>) deletedFieldValue,
                         field,
                         prefix);
-            } else if(fieldMetaData.valueMetaData.type == TType.MAP &&
-                    CommonUtils.isMapFieldMapOfStringSets(field, oldInstance, additions, deletions, LogManager.getLogger(TagUtils.class))) {
+            } else if (fieldMetaData.valueMetaData.type == TType.MAP &&
+                    CommonUtils.isMapFieldMapOfStringSets(field, oldInstance, additions, deletions,
+                            LogManager.getLogger(TagUtils.class))) {
                 displayCustomMap(display,
                         (Map<String, Set<String>>) oldFieldValue,
                         (Map<String, Set<String>>) updateFieldValue,
@@ -93,24 +95,25 @@ public class TagUtils {
                         field,
                         prefix);
             } else {
-                    displaySimpleField(display, oldFieldValue, updateFieldValue, deletedFieldValue, field, fieldMetaData, prefix);
-                }
+                displaySimpleField(display, oldFieldValue, updateFieldValue, deletedFieldValue, field, fieldMetaData,
+                        prefix);
             }
         }
+    }
 
     private static <U extends TFieldIdEnum> void displayCustomMap(StringBuilder display,
-                                                                  Map<String, Set<String>> oldFieldValue,
-                                                                  Map<String, Set<String>> updateFieldValue,
-                                                                  Map<String, Set<String>> deletedFieldValue,
-                                                                  U field,
-                                                                  String prefix) {
+            Map<String, Set<String>> oldFieldValue,
+            Map<String, Set<String>> updateFieldValue,
+            Map<String, Set<String>> deletedFieldValue,
+            U field,
+            String prefix) {
         Set<String> keySetOfChanges = unifiedKeyset(updateFieldValue, deletedFieldValue);
 
-        for(String key: keySetOfChanges){
+        for (String key : keySetOfChanges) {
             displaySet(display,
                     getNullToEmptyValue(oldFieldValue, key),
                     getNullToEmptyValue(updateFieldValue, key),
-                    getNullToEmptyValue(deletedFieldValue,key),
+                    getNullToEmptyValue(deletedFieldValue, key),
                     field,
                     prefix,
                     key);
@@ -119,20 +122,21 @@ public class TagUtils {
     }
 
     private static <U extends TFieldIdEnum, T extends TBase<T, U>> void displaySet(StringBuilder display,
-                                                                                   Set<String> oldFieldValue,
-                                                                                   Set<String> updateFieldValue,
-                                                                                   Set<String> deletedFieldValue,
-                                                                                   U field,
-                                                                                   String prefix) {
+            Set<String> oldFieldValue,
+            Set<String> updateFieldValue,
+            Set<String> deletedFieldValue,
+            U field,
+            String prefix) {
         displaySet(display, oldFieldValue, updateFieldValue, deletedFieldValue, field, prefix, "");
     }
+
     private static <U extends TFieldIdEnum, T extends TBase<T, U>> void displaySet(StringBuilder display,
-                                                                                   Set<String> oldFieldValue,
-                                                                                   Set<String> updateFieldValue,
-                                                                                   Set<String> deletedFieldValue,
-                                                                                   U field,
-                                                                                   String prefix,
-                                                                                   String key) {
+            Set<String> oldFieldValue,
+            Set<String> updateFieldValue,
+            Set<String> deletedFieldValue,
+            U field,
+            String prefix,
+            String key) {
         String oldDisplay = null;
         String deleteDisplay = "n.a. (modified list)";
         String updateDisplay = null;
@@ -156,21 +160,21 @@ public class TagUtils {
             oldDisplay = NOT_SET;
         }
 
-        String keyString = isNullOrEmpty(key) ? "" : " ["+key+"]";
+        String keyString = isNullOrEmpty(key) ? "" : " [" + key + "]";
 
-        display.append(String.format("<tr><td>%s:</td>", prefix + field.getFieldName()+keyString));
-        display.append(String.format("<td>%s</td>", oldDisplay, prefix + field.getFieldName()+keyString));
-        display.append(String.format("<td>%s</td>", deleteDisplay, prefix + field.getFieldName()+keyString));
-        display.append(String.format("<td>%s</td></tr> ", updateDisplay, prefix + field.getFieldName()+keyString));
+        display.append(String.format("<tr><td>%s:</td>", prefix + field.getFieldName() + keyString));
+        display.append(String.format("<td>%s</td>", oldDisplay, prefix + field.getFieldName() + keyString));
+        display.append(String.format("<td>%s</td>", deleteDisplay, prefix + field.getFieldName() + keyString));
+        display.append(String.format("<td>%s</td></tr> ", updateDisplay, prefix + field.getFieldName() + keyString));
     }
 
     private static <U extends TFieldIdEnum, T extends TBase<T, U>> void displaySimpleField(StringBuilder display,
-                                                                                           Object oldFieldValue,
-                                                                                           Object updateFieldValue,
-                                                                                           Object deletedFieldValue,
-                                                                                           U field,
-                                                                                           FieldMetaData fieldMetaData,
-                                                                                           String prefix) {
+            Object oldFieldValue,
+            Object updateFieldValue,
+            Object deletedFieldValue,
+            U field,
+            FieldMetaData fieldMetaData,
+            String prefix) {
         String oldDisplay = null;
         String deleteDisplay = null;
         String updateDisplay = null;
@@ -211,7 +215,7 @@ public class TagUtils {
                     StringBuilder sb = new StringBuilder();
                     sb.append("<ul>");
                     for (Object o : ((List<Object>) fieldValue)) {
-                        sb.append("<li>" + StringEscapeUtils.escapeXml(o.toString()) + "</li>");
+                        sb.append("<li>" + StringEscapeUtils.escapeXml11(o.toString()) + "</li>");
                     }
                     sb.append("</ul>");
                     fieldDisplay = sb.toString();
@@ -222,36 +226,38 @@ public class TagUtils {
                     StringBuilder sb = new StringBuilder();
                     sb.append("<ul>");
                     for (Object o : ((Set<Object>) fieldValue)) {
-                        sb.append("<li>" + StringEscapeUtils.escapeXml(o.toString()) + "</li>");
+                        sb.append("<li>" + StringEscapeUtils.escapeXml11(o.toString()) + "</li>");
                     }
                     sb.append("</ul>");
                     fieldDisplay = sb.toString();
                 }
                 break;
             case TType.MAP:
-                Map<Object, Object> mapValue = (Map<Object, Object>)fieldValue;
-                HashMap <String, String> stringMapValue = new HashMap();
+                Map<Object, Object> mapValue = (Map<Object, Object>) fieldValue;
+                HashMap<String, String> stringMapValue = new HashMap();
                 for (Map.Entry entry : mapValue.entrySet()) {
                     stringMapValue.put(entry.getKey().toString(), entry.getValue().toString());
                 }
                 fieldDisplay = DisplayMap.getMapAsString(stringMapValue);
                 break;
             default:
-                fieldDisplay = fieldValue == null ? "" : StringEscapeUtils.escapeXml(fieldValue.toString());
+                fieldDisplay = fieldValue == null ? "" : StringEscapeUtils.escapeXml11(fieldValue.toString());
         }
         return fieldDisplay;
     }
 
     public static String escapeAttributeValue(String value) {
-        return value != null ? StringEscapeUtils.escapeHtml(value).replaceAll("'", "&#39;") : "";
+        return value != null ? StringEscapeUtils.escapeHtml4(value).replaceAll("'", "&#39;") : "";
     }
 
-    public static void addDownloadLink(PageContext pageContext, JspWriter jspWriter, String name, String id, String contextType, String contextId)
+    public static void addDownloadLink(PageContext pageContext, JspWriter jspWriter, String name, String id,
+            String contextType, String contextId)
             throws IOException, JspException {
         addDownloadLink(pageContext, jspWriter, name, Collections.singleton(id), contextType, contextId);
     }
 
-    public static void addDownloadLink(PageContext pageContext, JspWriter jspWriter, String name, Collection<String> ids, String contextType, String contextId)
+    public static void addDownloadLink(PageContext pageContext, JspWriter jspWriter, String name,
+            Collection<String> ids, String contextType, String contextId)
             throws IOException, JspException {
         name = name != null ? escapeAttributeValue(name) : NO_FILENAME;
 
@@ -260,7 +266,7 @@ public class TagUtils {
                 .withParam(PortalConstants.ACTION, PortalConstants.ATTACHMENT_DOWNLOAD)
                 .withParam(PortalConstants.CONTEXT_TYPE, contextType)
                 .withParam(PortalConstants.CONTEXT_ID, contextId);
-        for(String id : ids){
+        for (String id : ids) {
             urlWriter.withParam(PortalConstants.ATTACHMENT_ID, id);
         }
         urlWriter.writeUrlToJspWriter();

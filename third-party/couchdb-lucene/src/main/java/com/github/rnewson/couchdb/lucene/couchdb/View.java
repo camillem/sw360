@@ -18,7 +18,7 @@ package com.github.rnewson.couchdb.lucene.couchdb;
 
 import com.github.rnewson.couchdb.lucene.util.Analyzers;
 import com.github.rnewson.couchdb.lucene.util.Constants;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.json.JSONException;
 import org.json.JSONObject;

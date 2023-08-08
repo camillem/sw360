@@ -81,7 +81,7 @@ import org.apache.thrift.TEnum;
 import org.apache.thrift.TException;
 import org.apache.thrift.TSerializer;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.portlet.*;
 import javax.servlet.http.HttpServletRequest;

@@ -9,7 +9,7 @@
  */
 package org.eclipse.sw360.portal.tags;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.eclipse.sw360.datahandler.thrift.projects.Project;
 
 import javax.servlet.jsp.JspException;
@@ -29,9 +29,9 @@ public class DisplayObligations extends SimpleTagSupport {
         this.defaultText = defaultText;
     }
 
-
     public void doTag() throws JspException, IOException {
-        String output = project.isSetObligationsText() ? StringEscapeUtils.escapeHtml(project.obligationsText) : StringEscapeUtils.escapeHtml(defaultText);
+        String output = project.isSetObligationsText() ? StringEscapeUtils.escapeHtml4(project.obligationsText)
+                : StringEscapeUtils.escapeHtml4(defaultText);
 
         getJspContext().getOut().print(output);
     }

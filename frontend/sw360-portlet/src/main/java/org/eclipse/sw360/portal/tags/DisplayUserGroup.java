@@ -17,10 +17,11 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
-import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
 
 /**
- * This displays a user's group. It makes a DB roundtrip for each invocation. Use with caution!
+ * This displays a user's group. It makes a DB roundtrip for each invocation.
+ * Use with caution!
  *
  * @author alex.borodin@evosoft.com
  */
@@ -40,7 +41,7 @@ public class DisplayUserGroup extends SimpleTagSupport {
             user = UserCacheHolder.EMPTY_USER;
         }
 
-        getJspContext().getOut().print(escapeHtml(user.getDepartment()));
+        getJspContext().getOut().print(escapeHtml4(user.getDepartment()));
     }
 
 }
